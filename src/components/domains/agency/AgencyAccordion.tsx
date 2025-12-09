@@ -1,7 +1,7 @@
 "use client";
 
-import Accordion from "@/components/generics/Accordion";
 import type { ReactNode } from "react";
+import Accordion from "@/components/generics/Accordion";
 
 interface AccordionSection {
 	id: string;
@@ -12,21 +12,11 @@ interface AccordionSection {
 interface AgencyAccordionProps {
 	sections: AccordionSection[];
 	defaultOpenId?: string;
-	className?: string;
 }
 
 const AgencyAccordion: React.FC<AgencyAccordionProps> = ({
 	sections,
 	defaultOpenId,
-	className = "",
-}) => {
-	return (
-		<Accordion
-			items={sections}
-			defaultOpenId={defaultOpenId}
-			className={className}
-		/>
-	);
-};
+}) => <Accordion items={sections} defaultOpenId={defaultOpenId} />;
 
 export default AgencyAccordion;

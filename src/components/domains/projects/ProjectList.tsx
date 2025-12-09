@@ -20,26 +20,20 @@ interface Project {
 
 interface ProjectListProps {
 	projects: Project[];
-	className?: string;
 }
 
-const ProjectList: React.FC<ProjectListProps> = ({
-	projects,
-	className = "",
-}) => {
-	return (
-		<div className={className}>
-			{projects.map((project, index) => (
-				<div
-					key={project.slug}
-					className="animate-fade-in-up"
-					style={{ animationDelay: `${index * 0.03}s` }}
-				>
-					<ProjectListItem {...project} />
-				</div>
-			))}
-		</div>
-	);
-};
+const ProjectList: React.FC<ProjectListProps> = ({ projects }) => (
+	<div>
+		{projects.map((project, index) => (
+			<div
+				key={project.slug}
+				className="animate-fade-in-up"
+				style={{ animationDelay: `${index * 0.03}s` }}
+			>
+				<ProjectListItem {...project} />
+			</div>
+		))}
+	</div>
+)
 
 export default ProjectList;

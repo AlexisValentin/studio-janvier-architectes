@@ -5,7 +5,6 @@ type SocialPlatform = "instagram" | "linkedin" | "pinterest";
 interface SocialLinkProps {
 	platform: SocialPlatform;
 	href: string;
-	className?: string;
 }
 
 const SOCIAL_ICONS: Record<SocialPlatform, React.ReactNode> = {
@@ -60,23 +59,18 @@ const SOCIAL_LABELS: Record<SocialPlatform, string> = {
 	pinterest: "Pinterest",
 };
 
-const SocialLink: React.FC<SocialLinkProps> = ({
-	platform,
-	href,
-	className = "",
-}) => {
-	return (
-		<Link
-			href={href}
-			target="_blank"
-			rel="noopener noreferrer"
-			className={`link-hover inline-flex items-center gap-2 ${className}`}
-			aria-label={SOCIAL_LABELS[platform]}
-		>
-			{SOCIAL_ICONS[platform]}
-			<span className="text-sm font-light">{SOCIAL_LABELS[platform]}</span>
-		</Link>
-	);
-};
+const SocialLink: React.FC<SocialLinkProps> = ({ platform, href }) => (
+	<Link
+		href={href}
+		target="_blank"
+		rel="noopener noreferrer"
+		className="link-hover inline-flex items-center gap-2"
+		aria-label={SOCIAL_LABELS[platform]}
+	>
+		{SOCIAL_ICONS[platform]}
+		<span className="text-sm font-light">{SOCIAL_LABELS[platform]}</span>
+	</Link>
+);
+	
 
 export default SocialLink;

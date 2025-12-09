@@ -80,14 +80,14 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
 					</span>
 					<h1 className="text-2xl font-light md:text-3xl">{title}</h1>
 				</div>
-				<ProjectMetadata items={metadataItems} className="mb-6" />
+				<ProjectMetadata items={metadataItems} />
 				{description && (
 					<p className="max-w-2xl text-base font-light leading-relaxed text-gray-700 mt-8">
 						{description}
 					</p>
 				)}
 			</header>
-			<ImageGallery images={galleryImages} className="mb-8 md:mb-12" />
+			<ImageGallery images={galleryImages} />
 			{photographer && (
 				<p className="text-sm font-light opacity-50 mb-8">
 					Photographies : {photographer}

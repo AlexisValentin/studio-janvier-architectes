@@ -5,8 +5,6 @@ interface MetadataItem {
 
 interface ProjectMetadataProps {
 	items: MetadataItem[];
-	className?: string;
-	layout?: "vertical" | "horizontal";
 }
 
 const ProjectMetadata: React.FC<ProjectMetadataProps> = ({ items }) => {

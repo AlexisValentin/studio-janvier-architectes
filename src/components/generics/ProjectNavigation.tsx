@@ -9,22 +9,20 @@ interface ProjectLink {
 interface ProjectNavigationProps {
 	previousProject?: ProjectLink;
 	nextProject?: ProjectLink;
-	className?: string;
 }
 
 const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
 	previousProject,
 	nextProject,
-	className = "",
 }) => {
 	if (!previousProject && !nextProject) return null;
 
 	return (
 		<nav
-			className={`flex justify-between border-t border-gray-200 pt-8 ${className}`}
+			className="flex justify-between border-t border-gray-200 pt-8 ${className}"
 			aria-label="Navigation entre les projets"
 		>
-			{previousProject ? (
+			{previousProject && (
 				<Link
 					href={`/projets/${previousProject.slug}`}
 					className="group link-hover"
@@ -36,8 +34,6 @@ const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
 						{previousProject.number} {previousProject.title}
 					</span>
 				</Link>
-			) : (
-				<div />
 			)}
 
 			{nextProject && (

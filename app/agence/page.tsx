@@ -116,7 +116,6 @@ const AgencePage = () => {
 						<AgencyAccordion
 							sections={ACCORDION_SECTIONS}
 							defaultOpenId="parcours"
-							className="mt-8"
 						/>
 					</div>
 				</div>

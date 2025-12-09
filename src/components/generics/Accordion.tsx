@@ -11,14 +11,9 @@ interface AccordionItem {
 interface AccordionProps {
 	items: AccordionItem[];
 	defaultOpenId?: string;
-	className?: string;
 }
 
-const Accordion: React.FC<AccordionProps> = ({
-	items,
-	defaultOpenId,
-	className = "",
-}) => {
+const Accordion: React.FC<AccordionProps> = ({ items, defaultOpenId }) => {
 	const [openId, setOpenId] = useState<string | null>(defaultOpenId ?? null);
 
 	const toggleItem = (id: string) => {
@@ -26,7 +21,7 @@ const Accordion: React.FC<AccordionProps> = ({
 	};
 
 	return (
-		<div className={`divide-y divide-gray-200 ${className}`}>
+		<div className="divide-y divide-gray-200">
 			{items.map((item) => {
 				const isOpen = openId === item.id;
 

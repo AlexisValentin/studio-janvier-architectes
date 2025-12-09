@@ -7,17 +7,13 @@ interface GalleryImage {
 
 interface ImageGalleryProps {
 	images: GalleryImage[];
-	className?: string;
 }
 
-const ImageGallery: React.FC<ImageGalleryProps> = ({
-	images,
-	className = "",
-}) => {
+const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
 	if (images.length === 0) return null;
 
 	return (
-		<div className={`space-y-4 md:space-y-6 ${className}`}>
+		<div className="space-y-4 md:space-y-6">
 			{images.map((image, index) => (
 				<div
 					key={image.src}
