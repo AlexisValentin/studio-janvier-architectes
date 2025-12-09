@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { FC } from "react";
-import Navigation from "@/components/domains/navigation/Navigation";
+import Menu from "@/components/domains/navigation/Menu";
 import "./globals.css";
 import Footer from "@/components/domains/footer/Footer";
 
@@ -46,7 +46,7 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
 		<html lang="fr">
 			<body className="bg-white text-gray-900">
 				<div className="flex min-h-screen flex-col">
-					<Navigation />
+					<Menu />
 					<div className="flex-1">{children}</div>
 					<Footer contact={CONTACT_INFO} socials={SOCIAL_LINKS} />
 				</div>

@@ -3,9 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-
 import Logo from "@/components/generics/Logo";
-
 import MobileMenu from "./MobileMenu";
 
 interface NavLink {
@@ -19,9 +17,13 @@ const NAV_LINKS: NavLink[] = [
 	{ href: "/agence", label: "AGENCE" },
 ];
 
-const Navigation: React.FC = () => {
+const Menu: React.FC = () => {
 	const pathname = usePathname();
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+	if (pathname === "/") {
+		return null;
+	}
 
 	const toggleMobileMenu = () => {
 		setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -36,7 +38,7 @@ const Navigation: React.FC = () => {
 			<header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
 				<div className="container-rf py-4 md:py-[1.6vw]">
 					<div className="flex items-center justify-between">
-						<Logo alt="STUDIO JANVIER" />
+						<Logo alt="Studio Janvier" />
 						<nav className="hidden md:block">
 							<ul className="flex gap-8">
 								{NAV_LINKS.map((link) => (
@@ -96,4 +98,4 @@ const Navigation: React.FC = () => {
 	);
 };
 
-export default Navigation;
+export default Menu;

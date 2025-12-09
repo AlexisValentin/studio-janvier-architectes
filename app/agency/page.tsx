@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Navigation from "@/components/domains/navigation/Navigation";
+import Menu from "@/components/domains/navigation/Menu";
 
 export const metadata: Metadata = {
 	title: "Agence - Studio Janvier Architectes",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const AgencyPage = () => {
 	return (
 		<>
-			<Navigation />
+			<Menu />
 			<main className="min-h-screen bg-white pt-24">
 				<section className="container-custom py-16">
 					<div className="max-w-3xl mx-auto">
