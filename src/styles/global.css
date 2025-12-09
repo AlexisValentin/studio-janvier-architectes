@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Styles de base personnalisés */
 @layer base {
 	html {
 		scroll-behavior: smooth;
@@ -16,14 +15,12 @@
 		background-color: #ffffff;
 	}
 
-	/* Optimisation pour les images d'architecture */
 	img {
 		max-width: 100%;
 		height: auto;
 		display: block;
 	}
 
-	/* Typographie minimaliste */
 	h1,
 	h2,
 	h3,
@@ -35,7 +32,6 @@
 	}
 }
 
-/* Composants personnalisés */
 @layer components {
 	.container-custom {
 		margin-left: auto;
@@ -52,7 +48,6 @@
 		}
 	}
 
-	/* Style minimaliste pour les liens */
 	.link-minimal {
 		transition: opacity 0.2s ease;
 	}
@@ -62,7 +57,6 @@
 	}
 }
 
-/* Utilitaires personnalisés */
 @layer utilities {
 	.text-balance {
 		text-wrap: balance;

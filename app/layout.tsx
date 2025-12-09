@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import type { FC } from "react";
+import Navigation from "@/components/domains/navigation/Navigation";
 import "./globals.css";
+import Footer from "@/components/domains/footer/Footer";
 
 export const metadata: Metadata = {
 	title: "Studio Janvier Architectes",
@@ -21,18 +24,35 @@ export const metadata: Metadata = {
 	},
 };
 
-export default function RootLayout({
-	children,
-}: Readonly<{
+const CONTACT_INFO = {
+	name: "Studio Janvier Architectes",
+	address: ["123 Rue de l'Architecture", "75001 Paris, France"],
+	email: "contact@studio-janvier.fr",
+	phone: "+33 1 23 45 67 89",
+};
+
+const SOCIAL_LINKS = {
+	instagram: "https://instagram.com",
+	linkedin: "https://linkedin.com",
+	pinterest: "https://pinterest.com",
+};
+
+type RootLayoutProps = Readonly<{
 	children: React.ReactNode;
-}>) {
+}>;
+
+const RootLayout: FC<RootLayoutProps> = ({ children }) => {
 	return (
 		<html lang="fr">
-			<head>
-				<link rel="preconnect" href="https://fonts.googleapis.com" />
-				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-			</head>
-			<body className="bg-white text-gray-900">{children}</body>
+			<body className="bg-white text-gray-900">
+				<div className="flex min-h-screen flex-col">
+					<Navigation />
+					<div className="flex-1">{children}</div>
+					<Footer contact={CONTACT_INFO} socials={SOCIAL_LINKS} />
+				</div>
+			</body>
 		</html>
 	);
-}
+};
+
+export default RootLayout;
