@@ -18,8 +18,8 @@ const Logo: React.FC<LogoProps> = ({
 				src={imageSrc}
 				alt={alt}
 				width={120}
-				height={20}
-				className="h-5 w-auto object-contain"
+				height={120}
+				className="w-auto object-contain"
 				priority
 			/>
 		) : (

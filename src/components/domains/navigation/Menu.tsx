@@ -38,7 +38,7 @@ const Menu: React.FC = () => {
 			<header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
 				<div className="container-rf py-4 md:py-[1.6vw]">
 					<div className="flex items-center justify-between">
-						<Logo alt="Studio Janvier" />
+						<Logo imageSrc="/images/studioJanvierLogo.png" alt="Studio Janvier" />
 						<nav className="hidden md:block">
 							<ul className="flex gap-8">
 								{NAV_LINKS.map((link) => (
