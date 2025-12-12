@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 	description: "Index complet de tous nos projets d'architecture.",
 };
 
-const IndexPage = () => {
+const Catalogue = () => {
 	const projects = getProjectsForList();
 
 	return (
@@ -20,4 +20,4 @@ const IndexPage = () => {
 	);
 };
 
-export default IndexPage;
+export default Catalogue;
