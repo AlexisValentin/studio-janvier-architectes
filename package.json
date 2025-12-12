@@ -1,32 +1,32 @@
 {
-	"name": "studio-janvier-architectes",
-	"type": "module",
-	"version": "1.0.0",
-	"description": "Site web officiel du cabinet d'architecture Studio Janvier Architectes",
-	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint",
-		"biome": "pnpm exec biome format --write",
-		"format": "biome format --write ./"
-	},
-	"dependencies": {
-		"@contentful/rich-text-react-renderer": "^16.1.6",
-		"@contentful/rich-text-types": "^17.2.5",
-		"@tailwindcss/postcss": "^4.1.17",
-		"contentful": "^11.9.0",
-		"next": "^16.0.8",
-		"react": "^19.2.1",
-		"react-dom": "^19.2.1",
-		"tailwindcss": "^4.1.17"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^2.3.8",
-		"@types/node": "^24.10.2",
-		"@types/react": "^19.2.7",
-		"@types/react-dom": "^19.2.3",
-		"baseline-browser-mapping": "^2.9.5",
-		"typescript": "^5.9.3"
-	}
+  "name": "studio-janvier-architectes",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Site web officiel du cabinet d'architecture Studio Janvier Architectes",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "biome": "pnpm exec biome format --write",
+    "format": "biome format --write ./"
+  },
+  "dependencies": {
+    "@contentful/rich-text-react-renderer": "^16.1.6",
+    "@contentful/rich-text-types": "^17.2.5",
+    "@tailwindcss/postcss": "^4.1.17",
+    "contentful": "^11.9.0",
+    "next": "16.0.10",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "tailwindcss": "^4.1.17"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.8",
+    "@types/node": "^24.10.2",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "baseline-browser-mapping": "^2.9.5",
+    "typescript": "^5.9.3"
+  }
 }
