@@ -12,9 +12,9 @@ interface NavLink {
 }
 
 const NAV_LINKS: NavLink[] = [
-	{ href: "/projets", label: "PROJETS" },
-	{ href: "/catalogue", label: "INDEX" },
-	{ href: "/agence", label: "AGENCE" },
+	{ href: "/a-propos", label: "A propos" },
+	{ href: "/projets", label: "Projets" },
+	{ href: "/contact", label: "Contact" },
 ];
 
 const Menu: React.FC = () => {
@@ -45,7 +45,7 @@ const Menu: React.FC = () => {
 									<li key={link.href}>
 										<Link
 											href={link.href}
-											className={`nav-link ${
+											className={`nav-link uppercase ${
 												pathname === link.href ||
 												(link.href !== "/" && pathname.startsWith(link.href))
 													? "nav-link-active"

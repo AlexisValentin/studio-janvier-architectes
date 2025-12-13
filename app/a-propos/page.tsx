@@ -81,7 +81,7 @@ const ACCORDION_SECTIONS = [
 	},
 ];
 
-const AgencePage = () => {
+const AboutPage = () => {
 	return (
 		<main className="min-h-screen bg-white pt-20 md:pt-24">
 			<div className="container-rf py-12 md:py-16">
@@ -96,7 +96,6 @@ const AgencePage = () => {
 							priority
 						/>
 					</div>
-
 					<div className="animate-fade-in-up">
 						<AgencySection>
 							<p className="text-lg leading-relaxed mb-6">
@@ -112,7 +111,6 @@ const AgencePage = () => {
 								espaces de vie.
 							</p>
 						</AgencySection>
-
 						<AgencyAccordion
 							sections={ACCORDION_SECTIONS}
 							defaultOpenId="parcours"
@@ -124,4 +122,4 @@ const AgencePage = () => {
 	);
 };
 
-export default AgencePage;
+export default AboutPage;
