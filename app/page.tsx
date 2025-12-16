@@ -3,29 +3,27 @@ import Link from "next/link";
 
 const HomePage = () => {
 	return (
-		<main className="flex flex-col items-center justify-center min-h-[calc(100vh-200px)] px-6 md:px-12">
+		<main className="flex flex-col items-center justify-center px-6 md:px-12">
 			<Link
 				href="/projets"
-				className="relative group block w-full max-w-4xl aspect-4/3 overflow-hidden"
+				className="relative group block w-full max-w-4xl aspect-21/9 overflow-hidden mt-24"
 			>
 				<Image
-					src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80"
+					src="/images/homeHeroImage.jpg"
 					alt="Découvrir les projets"
 					fill
-					className="object-cover transition-transform duration-500 group-hover:scale-105"
+					className="object-cover transition-transform duration-500"
 					priority
 				/>
-				<div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
 			</Link>
-
-			<nav className="flex gap-8 mt-8 md:mt-12">
-				<Link href="/a-propos" className="nav-link nav-link-inactive uppercase font-extrabold hover:text-black">
+			<nav className="flex flex-col items-center md:flex-row gap-12 md:gap-24 mt-24 md:mt-12">
+				<Link href="/a-propos" className="text-xl nav-link nav-link-inactive uppercase font-extrabold hover:text-black">
 					A propos
 				</Link>
-				<Link href="/projets" className="nav-link nav-link-inactive uppercase font-extrabold hover:text-black">
+				<Link href="/projets" className="text-xl nav-link nav-link-inactive uppercase font-extrabold hover:text-black">
 					Projets
 				</Link>
-				<Link href="/contact" className="nav-link nav-link-inactive uppercase font-extrabold hover:text-black">
+				<Link href="/contact" className="text-xl nav-link nav-link-inactive uppercase font-extrabold hover:text-black">
 					Contact
 				</Link>
 			</nav>
