@@ -4,18 +4,19 @@ import type { FC } from "react";
 
 import ProjectDetail from "@/components/domains/projects/ProjectDetail";
 import {
-	getAdjacentProjects,
-	getProjectBySlug,
-	MOCK_PROJECTS,
-} from "@/data/projects.mock";
+	fetchAdjacentProjects,
+	fetchProjectBySlug,
+	fetchProjectSlugs,
+} from "@/utils/cms/api";
 
 interface ProjectPageProps {
 	params: Promise<{ slug: string }>;
 }
 
-export const generateStaticParams = () => {
-	return MOCK_PROJECTS.map((project) => ({
-		slug: project.slug,
+export const generateStaticParams = async () => {
+	const slugs = await fetchProjectSlugs();
+	return slugs.map((slug) => ({
+		slug,
 	}));
 };
 
@@ -23,7 +24,7 @@ export const generateMetadata = async ({
 	params,
 }: ProjectPageProps): Promise<Metadata> => {
 	const { slug } = await params;
-	const project = getProjectBySlug(slug);
+	const project = await fetchProjectBySlug(slug);
 
 	if (!project) {
 		return {
@@ -37,15 +38,15 @@ export const generateMetadata = async ({
 	};
 };
 
-const ProjetPage: FC<ProjectPageProps> = async ({ params }) => {
+const ProjectPage: FC<ProjectPageProps> = async ({ params }) => {
 	const { slug } = await params;
-	const project = getProjectBySlug(slug);
+	const project = await fetchProjectBySlug(slug);
 
 	if (!project) {
 		notFound();
 	}
 
-	const { previous, next } = getAdjacentProjects(slug);
+	const { previous, next } = await fetchAdjacentProjects(slug);
 
 	const previousProject = previous
 		? { slug: previous.slug, title: previous.title, number: previous.number }
@@ -68,4 +69,4 @@ const ProjetPage: FC<ProjectPageProps> = async ({ params }) => {
 	);
 };
 
-export default ProjetPage;
+export default ProjectPage;

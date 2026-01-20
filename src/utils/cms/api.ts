@@ -1,0 +1,245 @@
+"use server";
+
+import type { EntryCollection } from "contentful";
+import { unstable_cache } from "next/cache";
+import { CACHE_CONFIG } from "./cache.constants";
+import { getContentfulClient } from "./client";
+import {
+	mapAboutPageEntryToContent,
+	mapHeroImageEntryToHeroImage,
+	mapProjectEntryToGridItem,
+	mapProjectEntryToProject,
+	mapSiteSettingsEntryToSettings,
+} from "./mappers";
+import type {
+	AboutPageContent,
+	AboutPageSkeleton,
+	FetchOptions,
+	HeroImage,
+	HeroImageSkeleton,
+	Project,
+	ProjectEntry,
+	ProjectGridItem,
+	ProjectSkeleton,
+	SiteSettings,
+	SiteSettingsSkeleton,
+} from "./types";
+
+const getProjectEntries = async (
+	options: FetchOptions = {},
+): Promise<EntryCollection<ProjectSkeleton, undefined, string>> => {
+	const client = getContentfulClient(options.preview);
+
+	return client.getEntries<ProjectSkeleton>({
+		content_type: "project",
+		order: ["-fields.number"] as any,
+		limit: options.limit,
+		skip: options.skip,
+	});
+};
+
+const getProjectEntryBySlug = async (
+	slug: string,
+	preview = false,
+): Promise<ProjectEntry | null> => {
+	const client = getContentfulClient(preview);
+
+	const response = await client.getEntries<ProjectSkeleton>({
+		content_type: "project",
+		"fields.slug": slug,
+		limit: 1,
+	} as any);
+
+	return response.items[0] || null;
+};
+
+export const fetchAllProjects = async (
+	options: FetchOptions = {},
+): Promise<Project[]> => {
+	return unstable_cache(
+		async () => {
+			const response = await getProjectEntries(options);
+			return Promise.all(response.items.map(mapProjectEntryToProject));
+		},
+		["projects", "all"],
+		{
+			tags: [CACHE_CONFIG.PROJECTS.TAG, CACHE_CONFIG.ALL.TAG],
+			revalidate: CACHE_CONFIG.PROJECTS.DURATION,
+		},
+	)();
+};
+
+export const fetchProjectBySlug = async (
+	slug: string,
+	preview = false,
+): Promise<Project | null> => {
+	return unstable_cache(
+		async () => {
+			const entry = await getProjectEntryBySlug(slug, preview);
+			return entry ? mapProjectEntryToProject(entry) : null;
+		},
+		["project", slug],
+		{
+			tags: [CACHE_CONFIG.PROJECTS.TAG, CACHE_CONFIG.ALL.TAG],
+			revalidate: CACHE_CONFIG.PROJECTS.DURATION,
+		},
+	)();
+};
+
+export const fetchProjectsForGrid = async (
+	options: FetchOptions = {},
+): Promise<ProjectGridItem[]> => {
+	return unstable_cache(
+		async () => {
+			const response = await getProjectEntries(options);
+			return Promise.all(response.items.map(mapProjectEntryToGridItem));
+		},
+		["projects", "grid"],
+		{
+			tags: [CACHE_CONFIG.PROJECTS.TAG, CACHE_CONFIG.ALL.TAG],
+			revalidate: CACHE_CONFIG.PROJECTS.DURATION,
+		},
+	)();
+};
+
+export const fetchFeaturedProjects = async (limit = 6): Promise<Project[]> => {
+	return unstable_cache(
+		async () => {
+			const client = getContentfulClient();
+			const response = await client.getEntries<ProjectSkeleton>({
+				content_type: "project",
+				"fields.featured": true,
+				order: ["-fields.publishDate"],
+				limit,
+			} as any);
+			return Promise.all(response.items.map(mapProjectEntryToProject));
+		},
+		["projects", "featured", limit.toString()],
+		{
+			tags: [CACHE_CONFIG.PROJECTS.TAG, CACHE_CONFIG.ALL.TAG],
+			revalidate: CACHE_CONFIG.PROJECTS.DURATION,
+		},
+	)();
+};
+
+export const fetchProjectsByStatus = async (
+	status: string,
+): Promise<Project[]> => {
+	return unstable_cache(
+		async () => {
+			const client = getContentfulClient();
+			const response = await client.getEntries<ProjectSkeleton>({
+				content_type: "project",
+				"fields.status": status,
+				order: ["-fields.number"],
+			} as any);
+			return Promise.all(response.items.map(mapProjectEntryToProject));
+		},
+		["projects", "status", status],
+		{
+			tags: [CACHE_CONFIG.PROJECTS.TAG, CACHE_CONFIG.ALL.TAG],
+			revalidate: CACHE_CONFIG.PROJECTS.DURATION,
+		},
+	)();
+};
+
+export const fetchAdjacentProjects = async (
+	slug: string,
+): Promise<{ previous?: Project; next?: Project }> => {
+	const allProjects = await fetchAllProjects();
+	const index = allProjects.findIndex((p) => p.slug === slug);
+
+	if (index === -1) return {};
+
+	return {
+		previous: index > 0 ? allProjects[index - 1] : undefined,
+		next: index < allProjects.length - 1 ? allProjects[index + 1] : undefined,
+	};
+};
+
+export const fetchProjectSlugs = async (): Promise<string[]> => {
+	return unstable_cache(
+		async () => {
+			const client = getContentfulClient();
+			const response = await client.getEntries<ProjectSkeleton>({
+				content_type: "project",
+				select: ["fields.slug"],
+			} as any);
+			return response.items.map((item) => item.fields.slug);
+		},
+		["projects", "slugs"],
+		{
+			tags: [CACHE_CONFIG.PROJECTS.TAG, CACHE_CONFIG.ALL.TAG],
+			revalidate: CACHE_CONFIG.PROJECTS.DURATION,
+		},
+	)();
+};
+
+export const fetchAboutPageContent = async (
+	preview = false,
+): Promise<AboutPageContent | null> => {
+	return unstable_cache(
+		async () => {
+			const client = getContentfulClient(preview);
+			const response = await client.getEntries<AboutPageSkeleton>({
+				content_type: "aboutPage",
+				"fields.slug": "about",
+				limit: 1,
+			} as any);
+
+			const entry = response.items[0];
+			return entry ? mapAboutPageEntryToContent(entry) : null;
+		},
+		["about", "content"],
+		{
+			tags: [CACHE_CONFIG.ABOUT.TAG, CACHE_CONFIG.ALL.TAG],
+			revalidate: CACHE_CONFIG.ABOUT.DURATION,
+		},
+	)();
+};
+
+export const fetchHeroImage = async (
+	preview = false,
+): Promise<HeroImage | null> => {
+	return unstable_cache(
+		async () => {
+			const client = getContentfulClient(preview);
+			const response = await client.getEntries<HeroImageSkeleton>({
+				content_type: "heroImage",
+				"fields.isActive": true,
+				order: ["-fields.priority"],
+				limit: 1,
+			} as any);
+
+			const entry = response.items[0];
+			return entry ? mapHeroImageEntryToHeroImage(entry) : null;
+		},
+		["hero", "active"],
+		{
+			tags: [CACHE_CONFIG.HERO.TAG, CACHE_CONFIG.ALL.TAG],
+			revalidate: CACHE_CONFIG.HERO.DURATION,
+		},
+	)();
+};
+
+export const fetchSiteSettings = async (
+	preview = false,
+): Promise<SiteSettings | null> => {
+	return unstable_cache(
+		async () => {
+			const client = getContentfulClient(preview);
+			const response = await client.getEntries<SiteSettingsSkeleton>({
+				content_type: "siteSettings",
+				limit: 1,
+			});
+
+			const entry = response.items[0];
+			return entry ? mapSiteSettingsEntryToSettings(entry) : null;
+		},
+		["settings", "site"],
+		{
+			tags: [CACHE_CONFIG.SETTINGS.TAG, CACHE_CONFIG.ALL.TAG],
+			revalidate: CACHE_CONFIG.SETTINGS.DURATION,
+		},
+	)();
+};
