@@ -1,7 +1,12 @@
 import SocialLink from "@/components/generics/SocialLink";
+import type { ContactInformation } from "@/utils/cms/types";
 import ContactSection from "./ContactSection";
 
-const ContactInfo: React.FC = () => {
+interface ContactInfoProps {
+	contactInfo: ContactInformation;
+}
+
+const ContactInfo: React.FC<ContactInfoProps> = ({ contactInfo }) => {
 	return (
 		<div className="space-y-8">
 			<ContactSection>
@@ -14,12 +19,11 @@ const ContactInfo: React.FC = () => {
 							ADRESSE
 						</p>
 						<address className="not-italic">
-							<p className="text-sm font-light leading-relaxed">
-								123 Rue de l'Architecture
-							</p>
-							<p className="text-sm font-light leading-relaxed">
-								75001 Paris, France
-							</p>
+							{contactInfo.address.map((line) => (
+								<p key={line} className="text-sm font-light leading-relaxed">
+									{line}
+								</p>
+							))}
 						</address>
 					</div>
 
@@ -29,38 +33,50 @@ const ContactInfo: React.FC = () => {
 						</p>
 						<p>
 							<a
-								href="mailto:contact@studio-janvier-architectes.fr"
+								href={`mailto:${contactInfo.email}`}
 								className="link-hover text-sm font-light"
 							>
-								contact@studio-janvier-architectes.fr
+								{contactInfo.email}
 							</a>
 						</p>
 					</div>
 
-					<div>
-						<p className="mb-2 text-sm font-light tracking-wider opacity-50">
-							TÉLÉPHONE
-						</p>
-						<p>
-							<a
-								href="tel:+33123456789"
-								className="link-hover text-sm font-light"
-							>
-								+33 1 23 45 67 89
-							</a>
-						</p>
-					</div>
+					{contactInfo.phone && (
+						<div>
+							<p className="mb-2 text-sm font-light tracking-wider opacity-50">
+								TÉLÉPHONE
+							</p>
+							<p>
+								<a
+									href={`tel:${contactInfo.phone.replaceAll(" ", "")}`}
+									className="link-hover text-sm font-light"
+								>
+									{contactInfo.phone}
+								</a>
+							</p>
+						</div>
+					)}
 				</div>
 			</ContactSection>
 
-			<ContactSection>
-				<h2 className="mb-6 text-lg font-light tracking-wider">
-					Réseaux sociaux
-				</h2>
-				<div className="flex flex-col gap-3">
-					<SocialLink platform="instagram" href="https://instagram.com" />
-				</div>
-			</ContactSection>
+			{(contactInfo.socials.instagram || contactInfo.socials.tiktok) && (
+				<ContactSection>
+					<h2 className="mb-6 text-lg font-light tracking-wider">
+						Réseaux sociaux
+					</h2>
+					<div className="flex flex-col gap-3">
+						{contactInfo.socials.instagram && (
+							<SocialLink
+								platform="instagram"
+								href={contactInfo.socials.instagram}
+							/>
+						)}
+						{contactInfo.socials.tiktok && (
+							<SocialLink platform="tiktok" href={contactInfo.socials.tiktok} />
+						)}
+					</div>
+				</ContactSection>
+			)}
 		</div>
 	);
 };

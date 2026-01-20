@@ -1,0 +1,167 @@
+{
+	"name": "Site Settings",
+	"description": "Paramètres globaux du site - informations de contact, réseaux sociaux et métadonnées",
+	"displayField": "title",
+	"fields": [
+		{
+			"id": "title",
+			"name": "Title",
+			"type": "Symbol",
+			"localized": false,
+			"required": true,
+			"validations": [],
+			"disabled": false,
+			"omitted": false
+		},
+		{
+			"id": "siteName",
+			"name": "Site Name",
+			"type": "Symbol",
+			"localized": false,
+			"required": true,
+			"validations": [],
+			"disabled": false,
+			"omitted": false
+		},
+		{
+			"id": "siteDescription",
+			"name": "Site Description",
+			"type": "Text",
+			"localized": false,
+			"required": true,
+			"validations": [],
+			"disabled": false,
+			"omitted": false
+		},
+		{
+			"id": "contactName",
+			"name": "Contact Name",
+			"type": "Symbol",
+			"localized": false,
+			"required": true,
+			"validations": [],
+			"disabled": false,
+			"omitted": false
+		},
+		{
+			"id": "contactAddress",
+			"name": "Contact Address",
+			"type": "Array",
+			"localized": false,
+			"required": true,
+			"validations": [],
+			"disabled": false,
+			"omitted": false,
+			"items": {
+				"type": "Symbol",
+				"validations": []
+			}
+		},
+		{
+			"id": "contactEmail",
+			"name": "Contact Email",
+			"type": "Symbol",
+			"localized": false,
+			"required": true,
+			"validations": [
+				{
+					"regexp": {
+						"pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+						"flags": null
+					},
+					"message": "Veuillez entrer une adresse email valide"
+				}
+			],
+			"disabled": false,
+			"omitted": false
+		},
+		{
+			"id": "contactPhone",
+			"name": "Contact Phone",
+			"type": "Symbol",
+			"localized": false,
+			"required": false,
+			"validations": [],
+			"disabled": false,
+			"omitted": false
+		},
+		{
+			"id": "socialInstagram",
+			"name": "Instagram URL",
+			"type": "Symbol",
+			"localized": false,
+			"required": false,
+			"validations": [
+				{
+					"regexp": {
+						"pattern": "^https?://",
+						"flags": null
+					},
+					"message": "Veuillez entrer une URL valide commençant par http:// ou https://"
+				}
+			],
+			"disabled": false,
+			"omitted": false
+		},
+		{
+			"id": "socialLinkedin",
+			"name": "LinkedIn URL",
+			"type": "Symbol",
+			"localized": false,
+			"required": false,
+			"validations": [
+				{
+					"regexp": {
+						"pattern": "^https?://",
+						"flags": null
+					},
+					"message": "Veuillez entrer une URL valide commençant par http:// ou https://"
+				}
+			],
+			"disabled": false,
+			"omitted": false
+		},
+		{
+			"id": "socialPinterest",
+			"name": "Pinterest URL",
+			"type": "Symbol",
+			"localized": false,
+			"required": false,
+			"validations": [
+				{
+					"regexp": {
+						"pattern": "^https?://",
+						"flags": null
+					},
+					"message": "Veuillez entrer une URL valide commençant par http:// ou https://"
+				}
+			],
+			"disabled": false,
+			"omitted": false
+		},
+		{
+			"id": "metaKeywords",
+			"name": "Meta Keywords",
+			"type": "Array",
+			"localized": false,
+			"required": false,
+			"validations": [],
+			"disabled": false,
+			"omitted": false,
+			"items": {
+				"type": "Symbol",
+				"validations": []
+			}
+		},
+		{
+			"id": "footerCopyright",
+			"name": "Footer Copyright",
+			"type": "Symbol",
+			"localized": false,
+			"required": false,
+			"validations": [],
+			"disabled": false,
+			"omitted": false
+		}
+	]
+}

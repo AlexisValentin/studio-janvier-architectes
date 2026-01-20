@@ -57,11 +57,11 @@ const ProjectListItem: React.FC<ProjectListItemProps> = ({
 				</div>
 
 				<div className="mt-2 flex flex-wrap gap-x-6 gap-y-1 text-sm font-light opacity-70">
-					{surface && <span>{surface}</span>}
+					{surface && <span>{surface} m²</span>}
 					{year && <span>{year}</span>}
 					{program && <span>{program}</span>}
 					{client && <span>{client}</span>}
-					{budget && <span>{budget}</span>}
+					{budget && <span>{budget} €</span>}
 					{status && <span>{STATUS_LABELS[status]}</span>}
 				</div>
 

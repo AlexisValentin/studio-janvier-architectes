@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "biome": "pnpm exec biome format --write",
-    "format": "biome format --write ./"
+    "format": "biome format --write ./",
+    "seed:site-settings": "npx tsx scripts/seed-site-settings.ts"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.1.6",
@@ -28,6 +29,8 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "baseline-browser-mapping": "^2.9.5",
+    "contentful-management": "^11.67.2",
+    "dotenv": "^17.2.3",
     "typescript": "^5.9.3"
   }
 }

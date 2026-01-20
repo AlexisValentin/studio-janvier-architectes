@@ -54,7 +54,11 @@ const RICH_TEXT_OPTIONS: Options = {
 		return text
 			.split("\n")
 			.reduce<ReactNode[]>((children, textSegment, index) => {
-				return [...children, index > 0 && <br key={textSegment} />, textSegment];
+				return [
+					...children,
+					index > 0 && <br key={textSegment} />,
+					textSegment,
+				];
 			}, []);
 	},
 };

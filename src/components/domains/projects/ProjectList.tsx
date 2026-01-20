@@ -34,6 +34,6 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => (
 			</div>
 		))}
 	</div>
-)
+);
 
 export default ProjectList;

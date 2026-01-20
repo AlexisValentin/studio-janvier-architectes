@@ -1,7 +1,4 @@
-import type {
-	ContactFormData,
-	ContactFormErrors,
-} from "@/types/contact";
+import type { ContactFormData, ContactFormErrors } from "@/types/contact";
 
 const FRENCH_PHONE_REGEX = /^(?:(?:\+|00)33|0)[1-9](?:\d{2}){4}$/;
 

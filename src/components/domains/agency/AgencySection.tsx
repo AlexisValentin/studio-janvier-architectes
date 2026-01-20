@@ -14,6 +14,6 @@ const AgencySection: React.FC<AgencySectionProps> = ({ title, children }) => (
 			{children}
 		</div>
 	</section>
-)
+);
 
 export default AgencySection;

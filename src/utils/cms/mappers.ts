@@ -4,30 +4,31 @@ import type { Asset } from "contentful";
 import type {
 	AboutPageContent,
 	AboutPageEntry,
+	ContactInformation,
+	ContactInformationEntry,
 	ContentfulImage,
 	HeroImage,
 	HeroImageEntry,
 	Project,
 	ProjectEntry,
 	ProjectGridItem,
-	SiteSettings,
-	SiteSettingsEntry,
 } from "./types";
 
-
-export const getImageUrl = async (asset: Asset | undefined): Promise<string> => {
+export const getImageUrl = async (
+	asset: Asset | undefined,
+): Promise<string> => {
 	if (!asset?.fields?.file?.url) return "";
-	
+
 	const url = asset.fields.file.url;
 	const urlString = typeof url === "string" ? url : url.toString();
-	
+
 	return urlString.startsWith("//") ? `https:${urlString}` : urlString;
 };
 
 export const getImageDimensions = async (asset: Asset | undefined) => {
 	const details = asset?.fields?.file?.details;
 	const image = details && "image" in details ? details.image : undefined;
-	
+
 	return {
 		width: image?.width || 0,
 		height: image?.height || 0,
@@ -60,12 +61,13 @@ export const mapAssetToContentfulImage = async (
 	};
 };
 
-
-export const mapProjectEntryToProject = async (entry: ProjectEntry): Promise<Project> => {
+export const mapProjectEntryToProject = async (
+	entry: ProjectEntry,
+): Promise<Project> => {
 	const { fields } = entry;
 
 	const galleryUrls = await Promise.all(
-		(fields.gallery ?? []).map(getImageUrl)
+		(fields.gallery ?? []).map(getImageUrl),
 	);
 	const filteredGalleryUrls = galleryUrls.filter(Boolean);
 
@@ -93,7 +95,6 @@ export const mapProjectEntryToProject = async (entry: ProjectEntry): Promise<Pro
 		content: fields.content,
 		images,
 		mainImageUrl,
-		featured: fields.featured,
 	};
 };
 
@@ -102,7 +103,9 @@ export const mapProjectEntryToGridItem = async (
 ): Promise<ProjectGridItem> => {
 	const { fields } = entry;
 	const imageUrl =
-		await getImageUrl(fields.mainImage) || await getImageUrl(fields.gallery?.[0]) || "";
+		(await getImageUrl(fields.mainImage)) ||
+		(await getImageUrl(fields.gallery?.[0])) ||
+		"";
 
 	return {
 		slug: fields.slug,
@@ -134,11 +137,6 @@ export const mapAboutPageEntryToContent = async (
 			title: fields.publicationsTitle ?? "Publications",
 			items: fields.publications ?? [],
 		},
-		contact: {
-			address: fields.address ?? [],
-			email: fields.email ?? "",
-			phone: fields.phone,
-		},
 	};
 };
 
@@ -150,32 +148,23 @@ export const mapHeroImageEntryToHeroImage = async (
 	return {
 		imageUrl: await getImageUrl(fields.image),
 		altText: fields.altText,
-		linkUrl: fields.linkUrl,
 	};
 };
 
-export const mapSiteSettingsEntryToSettings = async (
-	entry: SiteSettingsEntry,
-): Promise<SiteSettings> => {
+export const mapContactInformationEntryToContactInformation = async (
+	entry: ContactInformationEntry,
+): Promise<ContactInformation> => {
 	const { fields } = entry;
 
 	return {
-		siteName: fields.siteName,
-		siteDescription: fields.siteDescription,
-		contact: {
-			name: fields.contactName,
-			address: fields.contactAddress ?? [],
-			email: fields.contactEmail,
-			phone: fields.contactPhone,
-		},
+		name: fields.contactName,
+		address: fields.contactAddress ?? [],
+		email: fields.contactEmail,
+		phone: fields.contactPhone,
 		socials: {
 			instagram: fields.socialInstagram,
-			linkedin: fields.socialLinkedin,
-			pinterest: fields.socialPinterest,
+			tiktok: fields.socialTikTok,
 		},
-		metadata: {
-			keywords: fields.metaKeywords ?? [],
-			copyright: fields.footerCopyright,
-		},
+		footerCopyright: fields.footerCopyright,
 	};
 };

@@ -12,8 +12,7 @@ interface ContactInfo {
 
 interface SocialLinks {
 	instagram?: string;
-	linkedin?: string;
-	pinterest?: string;
+	tiktok?: string;
 }
 
 interface FooterProps {
@@ -77,11 +76,8 @@ const Footer: React.FC<FooterProps> = ({ contact, socials }) => {
 								{socials.instagram && (
 									<SocialLink platform="instagram" href={socials.instagram} />
 								)}
-								{socials.linkedin && (
-									<SocialLink platform="linkedin" href={socials.linkedin} />
-								)}
-								{socials.pinterest && (
-									<SocialLink platform="pinterest" href={socials.pinterest} />
+								{socials.tiktok && (
+									<SocialLink platform="tiktok" href={socials.tiktok} />
 								)}
 							</div>
 						</div>

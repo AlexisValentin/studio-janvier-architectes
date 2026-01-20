@@ -6,14 +6,16 @@ import { CACHE_CONFIG } from "./cache.constants";
 import { getContentfulClient } from "./client";
 import {
 	mapAboutPageEntryToContent,
+	mapContactInformationEntryToContactInformation,
 	mapHeroImageEntryToHeroImage,
 	mapProjectEntryToGridItem,
 	mapProjectEntryToProject,
-	mapSiteSettingsEntryToSettings,
 } from "./mappers";
 import type {
 	AboutPageContent,
 	AboutPageSkeleton,
+	ContactInformation,
+	ContactInformationSkeleton,
 	FetchOptions,
 	HeroImage,
 	HeroImageSkeleton,
@@ -21,8 +23,6 @@ import type {
 	ProjectEntry,
 	ProjectGridItem,
 	ProjectSkeleton,
-	SiteSettings,
-	SiteSettingsSkeleton,
 } from "./types";
 
 const getProjectEntries = async (
@@ -102,47 +102,6 @@ export const fetchProjectsForGrid = async (
 	)();
 };
 
-export const fetchFeaturedProjects = async (limit = 6): Promise<Project[]> => {
-	return unstable_cache(
-		async () => {
-			const client = getContentfulClient();
-			const response = await client.getEntries<ProjectSkeleton>({
-				content_type: "project",
-				"fields.featured": true,
-				order: ["-fields.publishDate"],
-				limit,
-			} as any);
-			return Promise.all(response.items.map(mapProjectEntryToProject));
-		},
-		["projects", "featured", limit.toString()],
-		{
-			tags: [CACHE_CONFIG.PROJECTS.TAG, CACHE_CONFIG.ALL.TAG],
-			revalidate: CACHE_CONFIG.PROJECTS.DURATION,
-		},
-	)();
-};
-
-export const fetchProjectsByStatus = async (
-	status: string,
-): Promise<Project[]> => {
-	return unstable_cache(
-		async () => {
-			const client = getContentfulClient();
-			const response = await client.getEntries<ProjectSkeleton>({
-				content_type: "project",
-				"fields.status": status,
-				order: ["-fields.number"],
-			} as any);
-			return Promise.all(response.items.map(mapProjectEntryToProject));
-		},
-		["projects", "status", status],
-		{
-			tags: [CACHE_CONFIG.PROJECTS.TAG, CACHE_CONFIG.ALL.TAG],
-			revalidate: CACHE_CONFIG.PROJECTS.DURATION,
-		},
-	)();
-};
-
 export const fetchAdjacentProjects = async (
 	slug: string,
 ): Promise<{ previous?: Project; next?: Project }> => {
@@ -206,15 +165,13 @@ export const fetchHeroImage = async (
 			const client = getContentfulClient(preview);
 			const response = await client.getEntries<HeroImageSkeleton>({
 				content_type: "heroImage",
-				"fields.isActive": true,
-				order: ["-fields.priority"],
 				limit: 1,
-			} as any);
+			});
 
 			const entry = response.items[0];
 			return entry ? mapHeroImageEntryToHeroImage(entry) : null;
 		},
-		["hero", "active"],
+		["hero", "image"],
 		{
 			tags: [CACHE_CONFIG.HERO.TAG, CACHE_CONFIG.ALL.TAG],
 			revalidate: CACHE_CONFIG.HERO.DURATION,
@@ -222,21 +179,23 @@ export const fetchHeroImage = async (
 	)();
 };
 
-export const fetchSiteSettings = async (
+export const fetchContactInformation = async (
 	preview = false,
-): Promise<SiteSettings | null> => {
+): Promise<ContactInformation | null> => {
 	return unstable_cache(
 		async () => {
 			const client = getContentfulClient(preview);
-			const response = await client.getEntries<SiteSettingsSkeleton>({
+			const response = await client.getEntries<ContactInformationSkeleton>({
 				content_type: "siteSettings",
 				limit: 1,
 			});
 
 			const entry = response.items[0];
-			return entry ? mapSiteSettingsEntryToSettings(entry) : null;
+			return entry
+				? mapContactInformationEntryToContactInformation(entry)
+				: null;
 		},
-		["settings", "site"],
+		["contact", "information"],
 		{
 			tags: [CACHE_CONFIG.SETTINGS.TAG, CACHE_CONFIG.ALL.TAG],
 			revalidate: CACHE_CONFIG.SETTINGS.DURATION,

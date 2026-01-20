@@ -48,8 +48,6 @@ export interface ProjectFields {
 	content?: Document;
 	mainImage?: Asset;
 	gallery?: Asset[];
-	featured?: boolean;
-	publishDate?: string;
 	category?: string[];
 }
 
@@ -72,9 +70,6 @@ export interface AboutPageFields {
 	awards?: string[];
 	publicationsTitle?: string;
 	publications?: string[];
-	address?: string[];
-	email?: string;
-	phone?: string;
 }
 
 export interface AboutPageSkeleton extends EntrySkeletonType {
@@ -88,9 +83,6 @@ export interface HeroImageFields {
 	title: string;
 	image: Asset;
 	altText: string;
-	linkUrl?: string;
-	priority: number;
-	isActive: boolean;
 }
 
 export interface HeroImageSkeleton extends EntrySkeletonType {
@@ -100,27 +92,26 @@ export interface HeroImageSkeleton extends EntrySkeletonType {
 
 export type HeroImageEntry = Entry<HeroImageSkeleton, undefined, string>;
 
-export interface SiteSettingsFields {
-	title: string;
-	siteName: string;
-	siteDescription: string;
+export interface ContactInformationFields {
 	contactName: string;
 	contactAddress: string[];
 	contactEmail: string;
 	contactPhone?: string;
 	socialInstagram?: string;
-	socialLinkedin?: string;
-	socialPinterest?: string;
-	metaKeywords?: string[];
+	socialTikTok?: string;
 	footerCopyright?: string;
 }
 
-export interface SiteSettingsSkeleton extends EntrySkeletonType {
+export interface ContactInformationSkeleton extends EntrySkeletonType {
 	contentTypeId: "siteSettings";
-	fields: SiteSettingsFields;
+	fields: ContactInformationFields;
 }
 
-export type SiteSettingsEntry = Entry<SiteSettingsSkeleton, undefined, string>;
+export type ContactInformationEntry = Entry<
+	ContactInformationSkeleton,
+	undefined,
+	string
+>;
 
 export interface Project {
 	slug: string;
@@ -140,7 +131,6 @@ export interface Project {
 	content?: Document;
 	images: string[];
 	mainImageUrl?: string;
-	featured?: boolean;
 }
 
 export interface ProjectGridItem {
@@ -167,37 +157,23 @@ export interface AboutPageContent {
 		title: string;
 		items: string[];
 	};
-	contact: {
-		address: string[];
-		email: string;
-		phone?: string;
-	};
 }
 
 export interface HeroImage {
 	imageUrl: string;
 	altText: string;
-	linkUrl?: string;
 }
 
-export interface SiteSettings {
-	siteName: string;
-	siteDescription: string;
-	contact: {
-		name: string;
-		address: string[];
-		email: string;
-		phone?: string;
-	};
+export interface ContactInformation {
+	name: string;
+	address: string[];
+	email: string;
+	phone?: string;
 	socials: {
 		instagram?: string;
-		linkedin?: string;
-		pinterest?: string;
+		tiktok?: string;
 	};
-	metadata: {
-		keywords: string[];
-		copyright?: string;
-	};
+	footerCopyright?: string;
 }
 
 export interface ContentfulImage {

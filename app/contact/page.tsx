@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/domains/contact/ContactForm";
 import ContactInfo from "@/components/domains/contact/ContactInfo";
+import { fetchContactInformation } from "@/utils/cms/api";
 
 export const metadata: Metadata = {
 	title: "Contact - Studio Janvier Architectes",
@@ -22,13 +23,15 @@ export const metadata: Metadata = {
 	},
 };
 
-const ContactPage = () => {
+const ContactPage = async () => {
+	const contactInfo = await fetchContactInformation();
+
 	return (
 		<main className="min-h-screen bg-white pt-20 md:pt-24">
 			<div className="container-rf py-12 md:py-16">
 				<div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
 					<div className="animate-fade-in">
-						<ContactInfo />
+						{contactInfo && <ContactInfo contactInfo={contactInfo} />}
 					</div>
 					<div className="animate-fade-in-up">
 						<ContactForm />

@@ -26,7 +26,6 @@ const Logo: React.FC<LogoProps> = ({
 			<span className="text-base font-light tracking-wider">{alt}</span>
 		)}
 	</Link>
-)
-
+);
 
 export default Logo;
