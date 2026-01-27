@@ -121,21 +121,9 @@ export const mapAboutPageEntryToContent = async (
 	const { fields } = entry;
 
 	return {
-		heroImageUrl: await getImageUrl(entry.fields.heroImage),
+		heroImageUrl: await getImageUrl(fields.heroImage),
 		introText: fields.introText,
 		description: fields.description,
-		parcours: {
-			title: fields.parcoursTitle ?? "Parcours",
-			content: fields.parcoursContent ?? null,
-		},
-		awards: {
-			title: fields.awardsTitle ?? "Prix et Publications",
-			items: fields.awards ?? [],
-		},
-		publications: {
-			title: fields.publicationsTitle ?? "Publications",
-			items: fields.publications ?? [],
-		},
 	};
 };
 

@@ -18,53 +18,6 @@ const AboutPage = async () => {
 	]);
 
 	const accordionSections = [
-		...(aboutContent?.parcours.content
-			? [
-					{
-						id: "parcours",
-						title: aboutContent.parcours.title,
-						content: (
-							<div className="space-y-4">
-								{renderRichText(aboutContent.parcours.content)}
-							</div>
-						),
-					},
-				]
-			: []),
-		...(aboutContent?.awards.items.length || aboutContent?.publications.items.length
-			? [
-					{
-						id: "prix-publications",
-						title: aboutContent?.awards.title || "Prix et Publications",
-						content: (
-							<div className="space-y-4">
-								{aboutContent?.awards.items.length > 0 && (
-									<>
-										<p className="font-medium">Prix</p>
-										<ul className="list-none space-y-1">
-											{aboutContent.awards.items.map((award) => (
-												<li key={award}>{award}</li>
-											))}
-										</ul>
-									</>
-								)}
-								{aboutContent?.publications.items.length > 0 && (
-									<>
-										<p className="font-medium mt-6">
-											{aboutContent.publications.title}
-										</p>
-										<ul className="list-none space-y-1">
-											{aboutContent.publications.items.map((pub) => (
-												<li key={pub}>{pub}</li>
-											))}
-										</ul>
-									</>
-								)}
-							</div>
-						),
-					},
-				]
-			: []),
 		...(contactInfo
 			? [
 					{

@@ -159,9 +159,8 @@ export const fetchAboutPageContent = async (
 			const client = getContentfulClient(preview);
 			const response = await client.getEntries<AboutPageSkeleton>({
 				content_type: "aboutPage",
-				"fields.slug": "about",
 				limit: 1,
-			} as any);
+			});
 
 			const entry = response.items[0];
 			return entry ? mapAboutPageEntryToContent(entry) : null;

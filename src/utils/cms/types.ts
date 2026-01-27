@@ -49,16 +49,9 @@ export type ProjectEntry = Entry<ProjectSkeleton, undefined, string>;
 
 export interface AboutPageFields {
 	title: string;
-	slug: string;
 	heroImage?: Asset;
 	introText?: string;
 	description?: Document;
-	parcoursTitle?: string;
-	parcoursContent?: Document;
-	awardsTitle?: string;
-	awards?: string[];
-	publicationsTitle?: string;
-	publications?: string[];
 }
 
 export interface AboutPageSkeleton extends EntrySkeletonType {
@@ -129,18 +122,6 @@ export interface AboutPageContent {
 	heroImageUrl?: string;
 	introText?: string;
 	description?: Document;
-	parcours: {
-		title: string;
-		content: Document | null;
-	};
-	awards: {
-		title: string;
-		items: string[];
-	};
-	publications: {
-		title: string;
-		items: string[];
-	};
 }
 
 export interface HeroImage {
