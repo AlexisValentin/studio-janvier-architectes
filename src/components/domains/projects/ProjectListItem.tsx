@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-type ProjectStatus = "completed" | "construction" | "studies" | "feasibility";
-
 interface ProjectListItemProps {
 	slug: string;
 	number: string;
@@ -9,21 +7,10 @@ interface ProjectListItemProps {
 	location?: string;
 	surface?: string;
 	year: string;
-	program?: string;
 	client?: string;
 	budget?: string;
-	status?: ProjectStatus;
-	team?: string[];
-	contractor?: string;
 	photographer?: string;
 }
-
-const STATUS_LABELS: Record<ProjectStatus, string> = {
-	completed: "livré",
-	construction: "chantier",
-	studies: "études",
-	feasibility: "faisabilité",
-};
 
 const ProjectListItem: React.FC<ProjectListItemProps> = ({
 	slug,
@@ -32,12 +19,8 @@ const ProjectListItem: React.FC<ProjectListItemProps> = ({
 	location,
 	surface,
 	year,
-	program,
 	client,
 	budget,
-	status,
-	team,
-	contractor,
 	photographer,
 }) => {
 	return (
@@ -59,17 +42,13 @@ const ProjectListItem: React.FC<ProjectListItemProps> = ({
 				<div className="mt-2 flex flex-wrap gap-x-6 gap-y-1 text-sm font-light opacity-70">
 					{surface && <span>{surface} m²</span>}
 					{year && <span>{year}</span>}
-					{program && <span>{program}</span>}
 					{client && <span>{client}</span>}
 					{budget && <span>{budget} €</span>}
-					{status && <span>{STATUS_LABELS[status]}</span>}
 				</div>
 
-				{(team?.length || contractor || photographer) && (
+				{photographer && (
 					<div className="mt-2 flex flex-wrap gap-x-6 gap-y-1 text-sm font-light opacity-50">
-						{team && team.length > 0 && <span>Équipe : {team.join(", ")}</span>}
-						{contractor && <span>Entreprise : {contractor}</span>}
-						{photographer && <span>Photo : {photographer}</span>}
+						<span>Photos : {photographer}</span>
 					</div>
 				)}
 			</article>

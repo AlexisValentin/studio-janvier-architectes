@@ -24,25 +24,14 @@ export interface ContentfulAsset {
 	};
 }
 
-export type ProjectStatus =
-	| "completed"
-	| "construction"
-	| "studies"
-	| "feasibility";
-
 export interface ProjectFields {
 	title: string;
 	slug: string;
-	number: string;
 	location?: string;
 	surface?: string;
 	year?: number;
-	program?: string;
 	client?: string;
 	budget?: string;
-	status?: ProjectStatus;
-	team?: string[];
-	contractor?: string;
 	photographer?: string;
 	description?: string;
 	content?: Document;
@@ -120,12 +109,8 @@ export interface Project {
 	location?: string;
 	surface?: string;
 	year: string;
-	program?: string;
 	client?: string;
 	budget?: string;
-	status: ProjectStatus;
-	team?: string[];
-	contractor?: string;
 	photographer?: string;
 	description?: string;
 	content?: Document;
@@ -138,7 +123,6 @@ export interface ProjectGridItem {
 	number: string;
 	title: string;
 	imageUrl: string;
-	status: ProjectStatus;
 }
 
 export interface AboutPageContent {

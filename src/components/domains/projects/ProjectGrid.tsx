@@ -1,13 +1,10 @@
 import ProjectCard from "./ProjectCard";
 
-type ProjectStatus = "completed" | "construction" | "studies" | "feasibility";
-
 interface Project {
 	slug: string;
 	number: string;
 	title: string;
 	imageUrl?: string;
-	status?: ProjectStatus;
 }
 
 interface ProjectGridProps {

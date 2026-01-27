@@ -61,8 +61,11 @@ export const mapAssetToContentfulImage = async (
 	};
 };
 
+const formatProjectNumber = (index: number): string => String(index + 1).padStart(3, "0");
+
 export const mapProjectEntryToProject = async (
 	entry: ProjectEntry,
+	index: number,
 ): Promise<Project> => {
 	const { fields } = entry;
 
@@ -79,17 +82,13 @@ export const mapProjectEntryToProject = async (
 
 	return {
 		slug: fields.slug,
-		number: fields.number,
+		number: formatProjectNumber(index),
 		title: fields.title,
 		location: fields.location,
 		surface: fields.surface,
 		year: fields.year ? String(fields.year) : "",
-		program: fields.program,
 		client: fields.client,
 		budget: fields.budget,
-		status: fields.status ?? "completed",
-		team: fields.team,
-		contractor: fields.contractor,
 		photographer: fields.photographer,
 		description: fields.description,
 		content: fields.content,
@@ -100,6 +99,7 @@ export const mapProjectEntryToProject = async (
 
 export const mapProjectEntryToGridItem = async (
 	entry: ProjectEntry,
+	index: number,
 ): Promise<ProjectGridItem> => {
 	const { fields } = entry;
 	const imageUrl =
@@ -109,10 +109,9 @@ export const mapProjectEntryToGridItem = async (
 
 	return {
 		slug: fields.slug,
-		number: fields.number,
+		number: formatProjectNumber(index),
 		title: fields.title,
 		imageUrl,
-		status: fields.status ?? "completed",
 	};
 };
 

@@ -2,8 +2,6 @@ import ImageGallery from "@/components/generics/ImageGallery";
 import ProjectMetadata from "@/components/generics/ProjectMetadata";
 import ProjectNavigation from "@/components/generics/ProjectNavigation";
 
-type ProjectStatus = "completed" | "construction" | "studies" | "feasibility";
-
 interface ProjectLink {
 	slug: string;
 	title: string;
@@ -16,12 +14,8 @@ interface ProjectDetailProps {
 	location?: string;
 	surface?: string;
 	year: string;
-	program?: string;
 	client?: string;
 	budget?: string;
-	status?: ProjectStatus;
-	team?: string[];
-	contractor?: string;
 	photographer?: string;
 	description?: string;
 	images: string[];
@@ -29,25 +23,14 @@ interface ProjectDetailProps {
 	nextProject?: ProjectLink;
 }
 
-const STATUS_LABELS: Record<ProjectStatus, string> = {
-	completed: "Livré",
-	construction: "En chantier",
-	studies: "Études",
-	feasibility: "Faisabilité",
-};
-
 const ProjectDetail: React.FC<ProjectDetailProps> = ({
 	number,
 	title,
 	location,
 	surface,
 	year,
-	program,
 	client,
 	budget,
-	status,
-	team,
-	contractor,
 	photographer,
 	description,
 	images,
@@ -55,15 +38,11 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
 	nextProject,
 }) => {
 	const metadataItems = [
-		{ label: "Lieu", value: location || "" },
-		{ label: "Surface", value: surface || "" },
+		{ label: "Lieu", value: location ?? "-" },
+		{ label: "Surface", value: surface ? `${surface} m²` : "- m²" },
 		{ label: "Année", value: year },
-		{ label: "Programme", value: program || "" },
-		{ label: "Client", value: client || "" },
-		{ label: "Budget", value: budget || "" },
-		{ label: "Statut", value: status ? STATUS_LABELS[status] : "" },
-		{ label: "Équipe", value: team || [] },
-		{ label: "Entreprise", value: contractor || "" },
+		{ label: "Client", value: client ?? "Privé" },
+		{ label: "Budget", value: budget ? `${budget} €` : "- €" },
 	];
 
 	const galleryImages = images.map((src, index) => ({
@@ -82,7 +61,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
 				</div>
 				<ProjectMetadata items={metadataItems} />
 				{description && (
-					<p className="max-w-2xl text-base font-light leading-relaxed text-gray-700 mt-8">
+					<p className="max-w-5xl text-base font-light leading-relaxed text-gray-700 mt-8">
 						{description}
 					</p>
 				)}

@@ -32,7 +32,7 @@ const getProjectEntries = async (
 
 	return client.getEntries<ProjectSkeleton>({
 		content_type: "project",
-		order: ["-fields.number"] as any,
+		order: ["sys.createdAt"] as any,
 		limit: options.limit,
 		skip: options.skip,
 	});
@@ -59,7 +59,11 @@ export const fetchAllProjects = async (
 	return unstable_cache(
 		async () => {
 			const response = await getProjectEntries(options);
-			return Promise.all(response.items.map(mapProjectEntryToProject));
+			return Promise.all(
+				response.items.map((entry, index) =>
+					mapProjectEntryToProject(entry, index),
+				),
+			);
 		},
 		["projects", "all"],
 		{
@@ -75,8 +79,17 @@ export const fetchProjectBySlug = async (
 ): Promise<Project | null> => {
 	return unstable_cache(
 		async () => {
-			const entry = await getProjectEntryBySlug(slug, preview);
-			return entry ? mapProjectEntryToProject(entry) : null;
+			const allEntries = await getProjectEntries();
+			const index = allEntries.items.findIndex(
+				(item) => item.fields.slug === slug,
+			);
+
+			if (index === -1) {
+				const entry = await getProjectEntryBySlug(slug, preview);
+				return entry ? mapProjectEntryToProject(entry, 0) : null;
+			}
+
+			return mapProjectEntryToProject(allEntries.items[index], index);
 		},
 		["project", slug],
 		{
@@ -92,7 +105,11 @@ export const fetchProjectsForGrid = async (
 	return unstable_cache(
 		async () => {
 			const response = await getProjectEntries(options);
-			return Promise.all(response.items.map(mapProjectEntryToGridItem));
+			return Promise.all(
+				response.items.map((entry, index) =>
+					mapProjectEntryToGridItem(entry, index),
+				),
+			);
 		},
 		["projects", "grid"],
 		{

@@ -1,7 +1,5 @@
 import ProjectListItem from "./ProjectListItem";
 
-type ProjectStatus = "completed" | "construction" | "studies" | "feasibility";
-
 interface Project {
 	slug: string;
 	number: string;
@@ -9,12 +7,8 @@ interface Project {
 	location?: string;
 	surface?: string;
 	year: string;
-	program?: string;
 	client?: string;
 	budget?: string;
-	status?: ProjectStatus;
-	team?: string[];
-	contractor?: string;
 	photographer?: string;
 }
 
