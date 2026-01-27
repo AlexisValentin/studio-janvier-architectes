@@ -1,11 +1,11 @@
 # Studio Janvier Architectes - Site Web
 
-Site web officiel du cabinet d'architecture Studio Janvier Architectes, développé avec Astro, Preact, TailwindCSS et Contentful.
+Site web officiel du cabinet d'architecture Studio Janvier Architectes, développé avec Next.js, React, TailwindCSS et Contentful.
 
 ## Stack Technique
 
-- **Framework**: [Astro](https://astro.build) 5.x - Framework moderne pour sites web statiques performants
-- **UI Library**: [Preact](https://preactjs.com) - Alternative légère à React (3kB)
+- **Framework**: [Next.js](https://nextjs.org) 16.x - Framework React moderne pour applications web performantes
+- **UI Library**: [React](https://react.dev) 19.x - Bibliothèque UI déclarative
 - **Styling**: [TailwindCSS](https://tailwindcss.com) v4 - Framework CSS utility-first
 - **CMS**: [Contentful](https://www.contentful.com) - Headless CMS pour la gestion du contenu
 - **Package Manager**: [pnpm](https://pnpm.io) - Gestionnaire de paquets rapide et efficace
@@ -13,8 +13,8 @@ Site web officiel du cabinet d'architecture Studio Janvier Architectes, dévelop
 
 ## Fonctionnalités
 
-- ✅ **SSG (Static Site Generation)** - Génération de site statique pour d'excellentes performances
-- ✅ **Optimisation d'images** - Compression et conversion automatique en WebP/AVIF
+- ✅ **SSG/SSR** - Génération statique et rendu côté serveur pour d'excellentes performances
+- ✅ **Optimisation d'images** - Compression et conversion automatique via Next.js Image
 - ✅ **SEO optimisé** - Meta tags, sitemap, robots.txt
 - ✅ **Contentful CMS** - Gestion du contenu découplée
 - ✅ **TypeScript** - Typage strict pour une meilleure qualité de code
@@ -25,29 +25,32 @@ Site web officiel du cabinet d'architecture Studio Janvier Architectes, dévelop
 ```text
 /
 ├── public/              # Assets statiques (favicon, robots.txt)
+├── app/                 # App Router Next.js
+│   ├── api/             # Routes API
+│   │   └── contact/     # API de contact
+│   ├── a-propos/        # Page À propos
+│   ├── contact/         # Page Contact
+│   ├── projets/         # Pages Projets
+│   │   └── [slug]/      # Page projet dynamique
+│   ├── globals.css      # Styles globaux
+│   ├── layout.tsx       # Layout principal
+│   └── page.tsx         # Page d'accueil
 ├── src/
-│   ├── components/      # Composants Preact réutilisables
-│   │   ├── ProjectCard.tsx
-│   │   └── OptimizedImage.astro
-│   ├── layouts/         # Layouts Astro
-│   │   └── BaseLayout.astro
-│   ├── lib/            # Utilitaires et helpers
-│   │   └── contentful/ # Client et API Contentful
-│   │       ├── client.ts
-│   │       ├── types.ts
-│   │       ├── api.ts
-│   │       └── index.ts
-│   ├── pages/          # Pages du site (routing automatique)
-│   │   └── index.astro
-│   ├── styles/         # Styles globaux
-│   │   └── global.css
-│   └── env.d.ts        # Types TypeScript pour env
-├── .env                # Variables d'environnement (local)
-├── .env.example        # Template des variables d'environnement
-├── astro.config.mjs    # Configuration Astro
-├── tailwind.config.mjs # Configuration TailwindCSS
-├── tsconfig.json       # Configuration TypeScript
-└── vercel.json         # Configuration Vercel
+│   ├── components/      # Composants React réutilisables
+│   │   ├── domains/     # Composants métier
+│   │   └── generics/    # Composants génériques
+│   ├── styles/          # Styles additionnels
+│   ├── types/           # Types TypeScript
+│   └── utils/           # Utilitaires et helpers
+│       ├── cms/         # Client et API Contentful
+│       ├── email/       # Service d'envoi d'emails
+│       └── validation/  # Validation des formulaires
+├── .env                 # Variables d'environnement (local)
+├── .env.example         # Template des variables d'environnement
+├── next.config.ts       # Configuration Next.js
+├── postcss.config.mjs   # Configuration PostCSS
+├── tsconfig.json        # Configuration TypeScript
+└── vercel.json          # Configuration Vercel
 ```
 
 ## Installation et Démarrage
@@ -84,10 +87,10 @@ CONTENTFUL_ENVIRONMENT=master
 | Commande | Action |
 |----------|--------|
 | `pnpm install` | Installe les dépendances |
-| `pnpm dev` | Lance le serveur de développement sur `localhost:4321` |
-| `pnpm build` | Construit le site pour la production dans `./dist/` |
-| `pnpm preview` | Prévisualise le build en local |
-| `pnpm astro ...` | Exécute des commandes Astro CLI |
+| `pnpm dev` | Lance le serveur de développement sur `localhost:3000` |
+| `pnpm build` | Construit le site pour la production dans `.next/` |
+| `pnpm start` | Lance le serveur de production |
+| `pnpm lint` | Exécute le linter ESLint |
 
 ## Configuration Contentful
 
@@ -145,7 +148,7 @@ CONTENTFUL_ENVIRONMENT=master
    - `CONTENTFUL_ACCESS_TOKEN`
    - `CONTENTFUL_PREVIEW_TOKEN`
    - `CONTENTFUL_ENVIRONMENT`
-3. Vercel détectera automatiquement Astro et déploiera votre site
+3. Vercel détectera automatiquement Next.js et déploiera votre site
 
 ### Configuration manuelle
 
@@ -153,24 +156,21 @@ Si nécessaire, vous pouvez personnaliser le déploiement dans `vercel.json`.
 
 ## Optimisation des Images
 
-Le projet utilise le composant `<Image />` natif d'Astro avec le service Sharp pour :
+Le projet utilise le composant `<Image />` natif de Next.js pour :
 - Conversion automatique en WebP/AVIF
 - Génération de srcset responsive
 - Lazy loading
 - Optimisation de la qualité
 
 Exemple d'utilisation :
-```astro
----
-import { Image } from 'astro:assets';
----
+```tsx
+import Image from 'next/image';
 
 <Image
   src={imageUrl}
   alt="Description"
   width={1200}
   height={800}
-  format="webp"
   quality={80}
 />
 ```
@@ -178,8 +178,8 @@ import { Image } from 'astro:assets';
 ## SEO
 
 Le site inclut plusieurs optimisations SEO :
-- **Meta tags** : Configurés dans `BaseLayout.astro`
-- **Sitemap** : Généré automatiquement à chaque build
+- **Meta tags** : Configurés via les métadonnées Next.js
+- **Sitemap** : Généré automatiquement
 - **Robots.txt** : Configuré pour autoriser tous les crawlers
 - **Canonical URLs** : Définis automatiquement
 - **Open Graph** : Meta tags pour les réseaux sociaux
@@ -189,51 +189,55 @@ Le site inclut plusieurs optimisations SEO :
 
 ### Ajouter une nouvelle page
 
-Créez simplement un fichier `.astro` dans `src/pages/` :
-
-```astro
----
-import BaseLayout from '@/layouts/BaseLayout.astro';
----
-
-<BaseLayout title="Nouvelle Page">
-  <h1>Contenu de la page</h1>
-</BaseLayout>
-```
-
-### Créer un composant Preact
+Créez simplement un dossier avec un fichier `page.tsx` dans `app/` :
 
 ```tsx
-// src/components/MonComposant.tsx
-import type { FunctionalComponent } from 'preact';
+// app/nouvelle-page/page.tsx
+export default function NouvellePage() {
+  return (
+    <main>
+      <h1>Contenu de la page</h1>
+    </main>
+  );
+}
+```
 
+### Créer un composant React
+
+```tsx
+// src/components/generics/MonComposant.tsx
 interface Props {
   title: string;
 }
 
-export const MonComposant: FunctionalComponent<Props> = ({ title }) => {
+export function MonComposant({ title }: Props) {
   return <div>{title}</div>;
-};
+}
 ```
 
 ### Récupérer du contenu depuis Contentful
 
-```astro
----
-import { getAllProjects } from '@/lib/contentful';
+```tsx
+// app/page.tsx
+import { getAllProjects } from '@/utils/cms/api';
 
-const projects = await getAllProjects();
----
+export default async function Home() {
+  const projects = await getAllProjects();
 
-{projects.map(project => (
-  <div>{project.fields.title}</div>
-))}
+  return (
+    <main>
+      {projects.map(project => (
+        <div key={project.slug}>{project.title}</div>
+      ))}
+    </main>
+  );
+}
 ```
 
 ## Support
 
 Pour toute question ou problème :
-- Documentation Astro : [docs.astro.build](https://docs.astro.build)
+- Documentation Next.js : [nextjs.org/docs](https://nextjs.org/docs)
 - Documentation Contentful : [contentful.com/developers/docs](https://www.contentful.com/developers/docs/)
 - Documentation TailwindCSS : [tailwindcss.com/docs](https://tailwindcss.com/docs)
 

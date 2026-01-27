@@ -2,7 +2,7 @@
 
 import type { EntryCollection } from "contentful";
 import { unstable_cache } from "next/cache";
-import { CACHE_CONFIG } from "./cache.constants";
+import { CACHE_CONFIG } from "./cache";
 import { getContentfulClient } from "./client";
 import {
 	mapAboutPageEntryToContent,
