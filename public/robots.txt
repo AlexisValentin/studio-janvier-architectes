@@ -5,4 +5,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://studio-janvier-architectes.com/sitemap-index.xml
+Sitemap: https://studio-janvier-architectes.com/sitemap.xml

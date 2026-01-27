@@ -7,8 +7,6 @@ export const metadata: Metadata = {
 	title: "Contact - Studio Janvier Architectes",
 	description:
 		"Contactez Studio Janvier Architectes pour vos projets d'architecture. Nous sommes à votre écoute pour répondre à vos questions et discuter de vos besoins.",
-	keywords:
-		"contact, architecte, Paris, Studio Janvier, devis, projet architecture",
 	openGraph: {
 		title: "Contact - Studio Janvier Architectes",
 		description:

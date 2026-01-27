@@ -9,6 +9,16 @@ import { renderRichText } from "@/utils/cms/richText";
 export const metadata: Metadata = {
 	title: "Agence - Studio Janvier Architectes",
 	description: "À propos de notre cabinet d'architecture contemporaine.",
+	openGraph: {
+		title: "Agence - Studio Janvier Architectes",
+		description: "À propos de notre cabinet d'architecture contemporaine.",
+		type: "website",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Agence - Studio Janvier Architectes",
+		description: "À propos de notre cabinet d'architecture contemporaine.",
+	},
 };
 
 const AboutPage = async () => {

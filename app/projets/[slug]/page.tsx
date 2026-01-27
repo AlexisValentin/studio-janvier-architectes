@@ -32,9 +32,35 @@ export const generateMetadata = async ({
 		};
 	}
 
+	const title = `${project.number} ${project.title} - Studio Janvier Architectes`;
+	const description =
+		project.description ||
+		`Découvrez le projet ${project.title} par Studio Janvier Architectes.`;
+
 	return {
-		title: `${project.number} ${project.title} - Studio Janvier Architectes`,
-		description: project.description,
+		title,
+		description,
+		openGraph: {
+			title,
+			description,
+			type: "website",
+			images: project.mainImageUrl
+				? [
+						{
+							url: project.mainImageUrl,
+							width: 1200,
+							height: 630,
+							alt: project.title,
+						},
+					]
+				: undefined,
+		},
+		twitter: {
+			card: "summary_large_image",
+			title,
+			description,
+			images: project.mainImageUrl ? [project.mainImageUrl] : undefined,
+		},
 	};
 };
 

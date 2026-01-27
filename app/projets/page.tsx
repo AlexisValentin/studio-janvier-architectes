@@ -7,6 +7,16 @@ import type { ProjectGridItem } from "@/utils/cms/types";
 export const metadata: Metadata = {
 	title: "Projets - Studio Janvier Architectes",
 	description: "Portfolio de nos projets d'architecture contemporaine.",
+	openGraph: {
+		title: "Projets - Studio Janvier Architectes",
+		description: "Portfolio de nos projets d'architecture contemporaine.",
+		type: "website",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Projets - Studio Janvier Architectes",
+		description: "Portfolio de nos projets d'architecture contemporaine.",
+	},
 };
 
 const ProjetsPage = async () => {
